@@ -1,6 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp"
+    android:background="@color/background"
+    tools:context=".MainMenuActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Título -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Menú Principal"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary"
+        android:layout_marginBottom="48dp" />
+
+    <!-- Contenedor para los botones -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginBottom="24dp">
+
+        <!-- Botón 1: Seleccionar Calle -->
+        <Button
+            android:id="@+id/btnSeleccionarCalle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar Calle"
+            android:textSize="18sp"
+            android:padding="16dp"
+            android:layout_marginBottom="24dp"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:backgroundTint="@color/primary" />
+
+        <!-- Botón 2: Seleccionar por Fecha -->
+        <Button
+            android:id="@+id/btnSeleccionarFecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar por Fecha"
+            android:textSize="18sp"
+            android:padding="16dp"
+            android:layout_marginBottom="24dp"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:backgroundTint="@color/secondary" />
+
+        <!-- Botón 3: Mostrar datos PL1 -->
+        <Button
+            android:id="@+id/btnMostrarDatosPL1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mostrar datos PL1"
+            android:textSize="18sp"
+            android:padding="16dp"
+            style="@style/Widget.AppCompat.Button"
+            android:backgroundTint="@color/grey" />
+
+    </LinearLayout>
+
+    <!-- Mensaje informativo -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selecciona una opción"
+        android:textSize="14sp"
+        android:textColor="@color/text_secondary"
+        android:layout_marginTop="32dp" />
+
+</LinearLayout>
