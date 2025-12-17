@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppPECL3"
         android:usesCleartextTraffic="true">
+        <activity android:name=".MainMenuActivity" android:exported="false" />
         <activity
             android:name=".StreetMonitoring"
             android:exported="false"
