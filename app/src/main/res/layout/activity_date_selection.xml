@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_horizontal"
+    android:background="#F8F9FA"
+    tools:context=".DateSelection">
+
+    <!-- Título -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seleccionar Fecha"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#2C3E50"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="20dp" />
+
+    <!-- Contenedor principal con margen -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:layout_marginBottom="40dp">
+
+        <!-- Año -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Año"
+            android:textSize="18sp"
+            android:textColor="#34495E"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etAnio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ej: 2024"
+            android:inputType="number"
+            android:maxLength="4"
+            android:padding="12dp"
+            android:background="@android:drawable/editbox_background_normal"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Mes -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mes"
+            android:textSize="18sp"
+            android:textColor="#34495E"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etMes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ej: 3 (1-12)"
+            android:inputType="number"
+            android:maxLength="2"
+            android:padding="12dp"
+            android:background="@android:drawable/editbox_background_normal"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Día -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Día"
+            android:textSize="18sp"
+            android:textColor="#34495E"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etDia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ej: 15 (1-31)"
+            android:inputType="number"
+            android:maxLength="2"
+            android:padding="12dp"
+            android:background="@android:drawable/editbox_background_normal" />
+
+    </LinearLayout>
+
+    <!-- Botón BUSCAR -->
+    <Button
+        android:id="@+id/btnBuscar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="BUSCAR"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:padding="16dp"
+        android:background="#3498DB"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="24dp" />
+
+    <!-- Texto informativo -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ingrese la fecha para buscar información"
+        android:textSize="14sp"
+        android:textColor="#7F8C8D"
+        android:layout_marginTop="30dp" />
+
+</LinearLayout>
