@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="32dp"
-    android:background="@color/background"
+    android:background="#F5F5F5"  
     tools:context=".MainMenuActivity">
 
     <!-- Título -->
@@ -18,8 +18,8 @@
         android:text="Menú Principal"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:textColor="@color/primary"
-        android:layout_marginBottom="48dp" />
+        android:textColor="#3F51B5"  
+        android:layout_marginBottom="48dp" />   
 
     <!-- Contenedor para los botones -->
     <LinearLayout
@@ -38,8 +38,7 @@
             android:textSize="18sp"
             android:padding="16dp"
             android:layout_marginBottom="24dp"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:backgroundTint="@color/primary" />
+            android:backgroundTint="#3F51B5" />  <!-- Color directo -->
 
         <!-- Botón 2: Seleccionar por Fecha -->
         <Button
@@ -50,8 +49,7 @@
             android:textSize="18sp"
             android:padding="16dp"
             android:layout_marginBottom="24dp"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:backgroundTint="@color/secondary" />
+            android:backgroundTint="#4CAF50" />  <!-- Color directo -->
 
         <!-- Botón 3: Mostrar datos PL1 -->
         <Button
@@ -61,8 +59,7 @@
             android:text="Mostrar datos PL1"
             android:textSize="18sp"
             android:padding="16dp"
-            style="@style/Widget.AppCompat.Button"
-            android:backgroundTint="@color/grey" />
+            android:backgroundTint="#9E9E9E" />  <!-- Color directo -->
 
     </LinearLayout>
 
@@ -72,7 +69,7 @@
         android:layout_height="wrap_content"
         android:text="Selecciona una opción"
         android:textSize="14sp"
-        android:textColor="@color/text_secondary"
+        android:textColor="#757575"  
         android:layout_marginTop="32dp" />
 
 </LinearLayout>
