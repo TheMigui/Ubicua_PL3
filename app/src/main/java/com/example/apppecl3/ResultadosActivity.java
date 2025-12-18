@@ -2,6 +2,7 @@ package com.example.apppecl3;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -18,6 +19,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ResultadosActivity extends AppCompatActivity {
 
@@ -59,7 +64,7 @@ public class ResultadosActivity extends AppCompatActivity {
             // String url = "http://10.0.2.2:8080/GetDataByDate?date=" + fechaFormateada;
 
             // Llamar al servidor
-            new ObtenerDatosTask().execute(url);
+            obtenerDatos();
         } else {
             Toast.makeText(this, "Error: No se recibió la fecha", Toast.LENGTH_SHORT).show();
             finish();
@@ -74,88 +79,28 @@ public class ResultadosActivity extends AppCompatActivity {
         });
     }
 
-    private class ObtenerDatosTask extends AsyncTask<String, Void, List<DatoSensor>> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
+    void obtenerDatos(){
+        Bundle extras = getIntent().getExtras();
+        String fecha = "2024-06-01";
+        if (extras != null){
+            fecha = extras.getString("fecha_formateada");
         }
-
-        @Override
-        protected List<DatoSensor> doInBackground(String... urls) {
-            List<DatoSensor> resultado = new ArrayList<>();
-            HttpURLConnection connection = null;
-
-            try {
-                URL url = new URL(urls[0]);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.setConnectTimeout(10000); // 10 segundos
-                connection.setReadTimeout(10000);
-
-                int responseCode = connection.getResponseCode();
-
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(connection.getInputStream()));
-                    StringBuilder response = new StringBuilder();
-                    String line;
-
-                    while ((line = reader.readLine()) != null) {
-                        response.append(line);
-                    }
-                    reader.close();
-
-                    // Parsear JSON
-                    JSONArray jsonArray = new JSONArray(response.toString());
-
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                        String sensorId = jsonObject.getString("sensor_id");
-                        String currentState = jsonObject.getString("current_state");
-                        String time = jsonObject.getString("time");
-
-                        resultado.add(new DatoSensor(sensorId, currentState, time));
-                    }
+        ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
+        Call<List<DatoSensor>> call = apiService.getItemsByDate(fecha);
+        call.enqueue(new Callback<List<DatoSensor>>() {
+            @Override
+            public void onResponse(Call<List<DatoSensor>> call, Response<List<DatoSensor>> response) {
+                if (response.isSuccessful()) {
+                    listaSensores = response.body();
                 } else {
-                    // Error en la respuesta del servidor
-                    return null;
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
+                    Log.e("ubicua","Error del servidor");
                 }
             }
 
-            return resultado;
-        }
-
-        @Override
-        protected void onPostExecute(List<DatoSensor> datos) {
-            progressBar.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
-
-            if (datos != null && !datos.isEmpty()) {
-                listaSensores.clear();
-                listaSensores.addAll(datos);
-                adapter.actualizarLista(listaSensores);
-
-                // Mostrar mensaje con cantidad de registros
-                Toast.makeText(ResultadosActivity.this,
-                        "Encontrados: " + datos.size() + " sensores",
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(ResultadosActivity.this,
-                        "No se encontraron datos para esta fecha",
-                        Toast.LENGTH_LONG).show();
+            @Override
+            public void onFailure(Call<List<DatoSensor>> call, Throwable t) {
+                Log.e("ubicua","Error: " + t.getMessage());
             }
-        }
+        });
     }
 }
