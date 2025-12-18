@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <!-- Información de la calle -->
+    <TextView
+        android:id="@+id/tvCalleInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Calle: [Nombre]"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="16dp"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- Label para spinner -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selecciona un sensor:"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Spinner de sensores -->
+    <Spinner
+        android:id="@+id/spinnerSensores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:padding="12dp"/>
+
+    <!-- Botón Seleccionar -->
+    <Button
+        android:id="@+id/btnSeleccionar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SELECCIONAR"
+        android:textSize="18sp"
+        android:padding="16dp"
+        android:backgroundTint="#2196F3"
+        android:textColor="#FFFFFF"/>
+
+</LinearLayout>

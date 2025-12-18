@@ -52,6 +52,13 @@
         <activity
             android:name=".StreetSelection"
             android:exported="false" />
+        <activity 
+            android:name=".SensorSelection"
+            android:exported="false" />
+
+        <activity 
+            android:name=".SensorDetailActivity" 
+            android:exported="false" />
             
     </application>
 
