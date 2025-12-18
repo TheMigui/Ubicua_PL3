@@ -13,4 +13,7 @@ public interface ApiService {
 
     @GET("Ubicua/GetDataByDate")
     Call<List<DatoSensor>> getItemsByDate(@Query("date") String date);
+
+    @GET("Ubicua/GetSensors")     // NUEVO: Para obtener sensores por calle
+    Call<List<Sensor>> getSensorsByStreet(@Query("StrId") String streetId);
 }

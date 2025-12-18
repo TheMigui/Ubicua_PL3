@@ -1,43 +1,38 @@
 package com.example.apppecl3;
 
-import com.google.gson.annotations.SerializedName;
-
 public class DatoSensor {
+    // Los nombres DEBEN coincidir EXACTAMENTE con el JSON
+    // O usar @SerializedName si los nombres son diferentes
 
-    @SerializedName("sensor_id")
-    private String sensorId;
+    private String sensor_id;      // ← IGUAL que en JSON
+    private String current_state;  // ← IGUAL que en JSON
+    private String time;           // ← IGUAL que en JSON
 
-    @SerializedName("current_state")
-    private String currentState;
-
-    @SerializedName("time")
-    private String time;
-
-    // Constructor vacío
+    // Constructor vacío OBLIGATORIO para Retrofit
     public DatoSensor() {}
 
-    // Constructor
-    public DatoSensor(String sensorId, String currentState, String time) {
-        this.sensorId = sensorId;
-        this.currentState = currentState;
+    // Constructor completo
+    public DatoSensor(String sensor_id, String current_state, String time) {
+        this.sensor_id = sensor_id;
+        this.current_state = current_state;
         this.time = time;
     }
 
-    // Getters y setters
+    // Getters y Setters - los nombres pueden ser distintos aquí
     public String getSensorId() {
-        return sensorId;
+        return sensor_id;
     }
 
-    public void setSensorId(String sensorId) {
-        this.sensorId = sensorId;
+    public void setSensorId(String sensor_id) {
+        this.sensor_id = sensor_id;
     }
 
     public String getCurrentState() {
-        return currentState;
+        return current_state;
     }
 
-    public void setCurrentState(String currentState) {
-        this.currentState = currentState;
+    public void setCurrentState(String current_state) {
+        this.current_state = current_state;
     }
 
     public String getTime() {
@@ -48,11 +43,12 @@ public class DatoSensor {
         this.time = time;
     }
 
+    // Para debugging
     @Override
     public String toString() {
         return "DatoSensor{" +
-                "sensorId='" + sensorId + '\'' +
-                ", currentState='" + currentState + '\'' +
+                "sensor_id='" + sensor_id + '\'' +
+                ", current_state='" + current_state + '\'' +
                 ", time='" + time + '\'' +
                 '}';
     }

@@ -7,14 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -23,87 +16,81 @@ import retrofit2.Response;
 
 public class StreetSelection extends AppCompatActivity {
     Spinner spinner;
-    Button boton;
+    Button btnContinuar;
     List<Street> listaCalles;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_street_selection);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
         spinner = findViewById(R.id.spinner);
-        boton = findViewById(R.id.button);
-        obtenerDatosDelServidor();
+        btnContinuar = findViewById(R.id.button);
+
+        // Obtener calles del servidor
+        obtenerCallesDelServidor();
     }
-    private void obtenerDatosDelServidor() {
+
+    private void obtenerCallesDelServidor() {
         ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
         Call<List<Street>> call = apiService.getItems();
+
         call.enqueue(new Callback<List<Street>>() {
             @Override
             public void onResponse(Call<List<Street>> call, Response<List<Street>> response) {
                 if (response.isSuccessful()) {
-                    List<Street> lista = response.body();
-                    mostrarLista(lista);
+                    listaCalles = response.body();
+                    if (listaCalles != null && !listaCalles.isEmpty()) {
+                        mostrarCallesEnSpinner(listaCalles);
+                    } else {
+                        Log.e("StreetSelection", "Lista de calles vacía");
+                    }
                 } else {
-                    Log.e("ubicua","Error del servidor");
+                    Log.e("StreetSelection", "Error del servidor: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Street>> call, Throwable t) {
-                Log.e("ubicua","Error: " + t.getMessage());
+                Log.e("StreetSelection", "Error de conexión: " + t.getMessage());
             }
         });
     }
 
-    private void mostrarLista(List<Street> lista) {
-        StringBuilder builder = new StringBuilder();
-        listaCalles = lista;
-
-        for (Street item : lista) {
-            builder.append(item.getId())
-                    .append(" - ")
-                    .append(item.getNombre())
-                    .append("\n");
-        }
-
-        Log.e("ubicua",builder.toString());
-
-        ArrayList<String> nombres = new ArrayList<>();
+    private void mostrarCallesEnSpinner(List<Street> lista) {
+        // Crear lista de nombres para el spinner
+        String[] nombresCalles = new String[lista.size()];
         for (int i = 0; i < lista.size(); i++) {
-
-            nombres.add(lista.get(i).getNombre());
+            nombresCalles[i] = lista.get(i).getNombre();
         }
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, nombres);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                nombresCalles);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         spinner.setAdapter(adapter);
 
-        boton.setOnClickListener(new View.OnClickListener() {
+        // Configurar botón continuar
+        btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("ubicua", "Boton pulsado: "+ spinner.getSelectedItem());
-                Log.i("ubicua", "Boton pulsado: "+ listaCalles.get((int) spinner.getSelectedItemId()).getNombre());
-                spinner.getSelectedItem();
-                spinner.getSelectedItemId();
+                int selectedPosition = spinner.getSelectedItemPosition();
+                if (selectedPosition >= 0 && selectedPosition < listaCalles.size()) {
+                    Street calleSeleccionada = listaCalles.get(selectedPosition);
 
-                Intent intent = new Intent(StreetSelection.this, StreetMonitoring.class);
-                intent.putExtra("street_id", listaCalles.get((int) spinner.getSelectedItemId()).getId());
-                intent.putExtra("street_name", listaCalles.get((int) spinner.getSelectedItemId()).getNombre());
-                startActivity(intent);
-                finish();
+                    Log.i("StreetSelection", "Calle seleccionada: " +
+                            calleSeleccionada.getNombre() + " (ID: " +
+                            calleSeleccionada.getId() + ")");
+
+                    // Ir a la siguiente actividad
+                    Intent intent = new Intent(StreetSelection.this, SensorSelection.class);
+                    intent.putExtra("street_id", calleSeleccionada.getId());
+                    intent.putExtra("street_name", calleSeleccionada.getNombre());
+                    startActivity(intent);
+                }
             }
         });
-    }
-
-    public void pulsarBoton()
-    {
-        Log.i("ubicua", "Boton pulasdo");
     }
 }
