@@ -47,7 +47,7 @@ public class DateSelection extends AppCompatActivity {
         }
         
         // Validar formato numérico
-        if (!esNumeroValido(anio, 1900, 2100) || 
+        if (!esNumeroValido(anio, 66, 2100) ||
             !esNumeroValido(mes, 1, 12) || 
             !esNumeroValido(dia, 1, 31)) {
             Toast.makeText(this, "Por favor, ingrese fechas válidas", Toast.LENGTH_SHORT).show();
@@ -64,7 +64,7 @@ public class DateSelection extends AppCompatActivity {
         Toast.makeText(this, "Buscando datos para: " + fechaFormateada, Toast.LENGTH_SHORT).show();
         
         // Ir a ActivityCambiarya con la fecha
-        Intent intent = new Intent(DateSelection.this, ActivityCambiarya.class);
+        Intent intent = new Intent(DateSelection.this, ResultadosActivity.class);
         intent.putExtra("fecha_formateada", fechaFormateada);
         intent.putExtra("anio", anio);
         intent.putExtra("mes", mes);
