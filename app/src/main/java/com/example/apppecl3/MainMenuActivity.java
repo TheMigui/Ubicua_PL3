@@ -66,7 +66,7 @@ public class MainMenuActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }
-                }, 3000); // 3000 milisegundos = 3 segundos
+                }, 1000); // 3000 milisegundos = 3 segundos
             }
         });
 
