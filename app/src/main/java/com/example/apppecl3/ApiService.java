@@ -9,7 +9,7 @@ import retrofit2.http.Query;
 public interface ApiService {
 
     @GET("Ubicua/GetStreets")   // ruta del endpoint
-    Call<List<Street>> getItems();
+    Call<List<String>> getStreetIds();
 
     @GET("Ubicua/GetDataByDate")
     Call<List<DatoSensor>> getItemsByDate(@Query("date") String date);
