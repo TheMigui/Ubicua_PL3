@@ -1,9 +1,16 @@
 package com.example.apppecl3;
 
 public class Street {
-    private String idTopic;
-    private String value;
+    private String id;
+    private String nombre;
 
-    public String getId() { return idTopic; }
-    public String getNombre() { return value; }
+    // Constructor vacío necesario para Retrofit
+    public Street() {}
+
+    // Getters y setters
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 }
