@@ -2,6 +2,7 @@ package com.example.apppecl3;
 
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SensorDetailActivity extends AppCompatActivity {
@@ -11,18 +12,26 @@ public class SensorDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensor_detail);
 
-        // Obtener datos del sensor
+        // Obtener datos
         String sensorId = getIntent().getStringExtra("sensor_id");
-        String sensorTipo = getIntent().getStringExtra("sensor_tipo");
         String streetName = getIntent().getStringExtra("street_name");
+        String streetId = getIntent().getStringExtra("street_id");
 
         // Mostrar información
         TextView tvDetalle = findViewById(R.id.tvDetalle);
-        String detalle = "Calle: " + streetName + "\n\n" +
-                "Sensor ID: " + sensorId + "\n" +
-                "Tipo: " + sensorTipo + "\n\n" +
-                "(Esta actividad se implementará después)";
+        String detalle = "✅ FLUJO COMPLETADO\n\n" +
+                "📌 Calle: " + streetName + "\n" +
+                "   ID: " + streetId + "\n\n" +
+                "🎯 Sensor seleccionado:\n" +
+                "   " + sensorId + "\n\n" +
+                "🔧 Esta pantalla se implementará\n" +
+                "   para mostrar datos del sensor";
 
         tvDetalle.setText(detalle);
+
+        // Mostrar Toast
+        Toast.makeText(this,
+                "Sensor " + sensorId + " seleccionado",
+                Toast.LENGTH_LONG).show();
     }
 }
