@@ -29,31 +29,86 @@ public class SensorDataAdapter extends RecyclerView.Adapter<SensorDataAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SensorData data = listaDatos.get(position);
 
+        // 1. Fecha y hora
         holder.tvFechaHora.setText(data.getTime());
-        holder.tvEstado.setText(data.getCurrentState());
-        holder.tvPeatones.setText(data.isPedestrianWaiting() ? "Sí" : "No");
 
-        // Cambiar color según el estado
-        switch (data.getCurrentState().toLowerCase()) {
-            case "green":
-                holder.tvEstado.setTextColor(Color.GREEN);
+        // 2. Interpretar estado (Gr, Yr, Rr1, Rr2, Rg)
+        String[] estados = interpretarEstado(data.getCurrentState());
+
+        // 3. Mostrar estados separados
+        holder.tvEstadoCoches.setText("🚗 " + estados[0]);     // Ej: "🚗 VERDE"
+        holder.tvEstadoPeatones.setText("🚶 " + estados[1]);   // Ej: "🚶 ROJO"
+
+        // 4. Aplicar colores
+        aplicarColorEstado(holder.tvEstadoCoches, estados[0]);
+        aplicarColorEstado(holder.tvEstadoPeatones, estados[1]);
+
+        // 5. Mostrar si hay peatón esperando
+        if (data.isPedestrianWaiting()) {
+            holder.tvPeatonEsperando.setText("🟢 CON PEATÓN ESPERANDO");
+            holder.tvPeatonEsperando.setTextColor(Color.GREEN);
+            holder.tvPeatonEsperando.setBackgroundColor(Color.parseColor("#E8F5E8"));
+        } else {
+            holder.tvPeatonEsperando.setText("⚫ SIN PEATONES ESPERANDO");
+            holder.tvPeatonEsperando.setTextColor(Color.GRAY);
+            holder.tvPeatonEsperando.setBackgroundColor(Color.parseColor("#F5F5F5"));
+        }
+    }
+
+    private String[] interpretarEstado(String codigoEstado) {
+        String estadoCoches = "";
+        String estadoPeatones = "";
+
+        switch (codigoEstado) {
+            case "Gr":  // Green for cars, Red for pedestrians
+                estadoCoches = "VERDE";
+                estadoPeatones = "ROJO";
                 break;
-            case "red":
-                holder.tvEstado.setTextColor(Color.RED);
+            case "Yr":  // Yellow for cars, Red for pedestrians
+                estadoCoches = "AMARILLO";
+                estadoPeatones = "ROJO";
                 break;
-            case "amber":
-                holder.tvEstado.setTextColor(Color.parseColor("#FFA500")); // Naranja
+            case "Rr1": // Red for cars, Red for pedestrians (Fase 1)
+                estadoCoches = "ROJO";
+                estadoPeatones = "ROJO";
+                break;
+            case "Rr2": // Red for cars, Red for pedestrians (Fase 2)
+                estadoCoches = "ROJO";
+                estadoPeatones = "ROJO";
+                break;
+            case "Rg":  // Red for cars, Green for pedestrians
+                estadoCoches = "ROJO";
+                estadoPeatones = "VERDE";
                 break;
             default:
-                holder.tvEstado.setTextColor(Color.BLACK);
+                estadoCoches = codigoEstado;
+                estadoPeatones = "?";
         }
 
-        // Color para peatones
-        if (data.isPedestrianWaiting()) {
-            holder.tvPeatones.setTextColor(Color.RED);
-        } else {
-            holder.tvPeatones.setTextColor(Color.GREEN);
+        return new String[]{estadoCoches, estadoPeatones};
+    }
+
+    private void aplicarColorEstado(TextView textView, String estado) {
+        switch (estado) {
+            case "VERDE":
+                textView.setTextColor(Color.GREEN);
+                textView.setBackgroundColor(Color.parseColor("#E8F5E8"));
+                break;
+            case "AMARILLO":
+                textView.setTextColor(Color.parseColor("#FFA500"));
+                textView.setBackgroundColor(Color.parseColor("#FFF3E0"));
+                break;
+            case "ROJO":
+                textView.setTextColor(Color.RED);
+                textView.setBackgroundColor(Color.parseColor("#FFEBEE"));
+                break;
+            default:
+                textView.setTextColor(Color.BLACK);
+                textView.setBackgroundColor(Color.TRANSPARENT);
         }
+
+        // Padding ya está en el XML, pero lo mantenemos por si acaso
+        textView.setPadding(8, 4, 8, 4);
     }
 
     @Override
@@ -67,13 +122,14 @@ public class SensorDataAdapter extends RecyclerView.Adapter<SensorDataAdapter.Vi
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvFechaHora, tvEstado, tvPeatones;
+        TextView tvFechaHora, tvEstadoCoches, tvEstadoPeatones, tvPeatonEsperando;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvFechaHora = itemView.findViewById(R.id.tvFechaHora);
-            tvEstado = itemView.findViewById(R.id.tvEstado);
-            tvPeatones = itemView.findViewById(R.id.tvPeatones);
+            tvEstadoCoches = itemView.findViewById(R.id.tvEstadoCoches);
+            tvEstadoPeatones = itemView.findViewById(R.id.tvEstadoPeatones);
+            tvPeatonEsperando = itemView.findViewById(R.id.tvPeatonEsperando);
         }
     }
 }
