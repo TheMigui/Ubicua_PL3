@@ -20,4 +20,7 @@ public interface ApiService {
     @GET("Ubicua/GetSensorData")
     Call<List<SensorData>> getSensorData(@Query("SId") String sensorId);
 
+    @GET("Ubicua/TriggerTL")
+    Call<SuccessResponse> triggerTL();
+
 }
