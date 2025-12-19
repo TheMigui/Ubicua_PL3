@@ -16,4 +16,8 @@ public interface ApiService {
 
     @GET("Ubicua/GetSensors")
     Call<List<String>> getSensorsByStreet(@Query("StrId") String streetId);
+
+    @GET("Ubicua/GetSensorData")
+    Call<List<SensorData>> getSensorData(@Query("SId") String sensorId);
+
 }
