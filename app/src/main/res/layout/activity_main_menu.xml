@@ -56,10 +56,10 @@
             android:id="@+id/btnMostrarDatosPL1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mostrar datos PL1"
-            android:textSize="18sp"
+            android:backgroundTint="#9E9E9E"
             android:padding="16dp"
-            android:backgroundTint="#9E9E9E" />  <!-- Color directo -->
+            android:text="Activar Semáforo PL1"
+            android:textSize="18sp" />  <!-- Color directo -->
 
     </LinearLayout>
 
