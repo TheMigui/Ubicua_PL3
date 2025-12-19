@@ -1,5 +1,6 @@
 package com.example.apppecl3;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -69,8 +70,9 @@ public class ResultadosActivity extends AppCompatActivity {
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-            }
+                Intent intent = new Intent(ResultadosActivity.this, MainMenuActivity.class);
+                startActivity(intent);
+                finish();            }
         });
     }
 
