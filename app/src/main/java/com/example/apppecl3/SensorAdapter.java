@@ -31,24 +31,24 @@ public class SensorDataAdapter extends RecyclerView.Adapter<SensorDataAdapter.Vi
         
         holder.tvFechaHora.setText(data.getTime());
         
-        // Mostrar estados separados para coches y peatones
+        // Interpretar estado
         String[] estados = interpretarEstado(data.getCurrentState());
-        holder.tvEstadoCoches.setText("Coches: " + estados[0]);
-        holder.tvEstadoPeatones.setText("Peatones: " + estados[1]);
+        holder.tvEstadoCoches.setText("🚗 " + estados[0]);
+        holder.tvEstadoPeatones.setText("🚶 " + estados[1]);
         
         // Aplicar colores
         aplicarColorEstado(holder.tvEstadoCoches, estados[0]);
         aplicarColorEstado(holder.tvEstadoPeatones, estados[1]);
         
-        // Estado de espera de peatones
+        // Mostrar si hay peatón esperando
         if (data.isPedestrianWaiting()) {
-            holder.tvEsperando.setText("🟢 CON PEATÓN");
-            holder.tvEsperando.setTextColor(Color.GREEN);
-            holder.tvEsperando.setBackgroundColor(Color.parseColor("#E8F5E8"));
+            holder.tvPeatonEsperando.setText("🟢 CON PEATÓN ESPERANDO");
+            holder.tvPeatonEsperando.setTextColor(Color.GREEN);
+            holder.tvPeatonEsperando.setBackgroundColor(Color.parseColor("#E8F5E8"));
         } else {
-            holder.tvEsperando.setText("⚫ SIN PEATÓN");
-            holder.tvEsperando.setTextColor(Color.GRAY);
-            holder.tvEsperando.setBackgroundColor(Color.parseColor("#F5F5F5"));
+            holder.tvPeatonEsperando.setText("⚫ SIN PEATONES ESPERANDO");
+            holder.tvPeatonEsperando.setTextColor(Color.GRAY);
+            holder.tvPeatonEsperando.setBackgroundColor(Color.parseColor("#F5F5F5"));
         }
     }
     
@@ -118,15 +118,15 @@ public class SensorDataAdapter extends RecyclerView.Adapter<SensorDataAdapter.Vi
         notifyDataSetChanged();
     }
     
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvFechaHora, tvEstadoCoches, tvEstadoPeatones, tvEsperando;
-        
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvFechaHora = itemView.findViewById(R.id.tvFechaHora);
-            tvEstadoCoches = itemView.findViewById(R.id.tvEstadoCoches);
-            tvEstadoPeatones = itemView.findViewById(R.id.tvEstadoPeatones);
-            tvEsperando = itemView.findViewById(R.id.tvEsperando);
-        }
+static class ViewHolder extends RecyclerView.ViewHolder {
+    TextView tvFechaHora, tvEstadoCoches, tvEstadoPeatones, tvPeatonEsperando;
+    
+    public ViewHolder(@NonNull View itemView) {
+        super(itemView);
+        tvFechaHora = itemView.findViewById(R.id.tvFechaHora);
+        tvEstadoCoches = itemView.findViewById(R.id.tvEstadoCoches);
+        tvEstadoPeatones = itemView.findViewById(R.id.tvEstadoPeatones);
+        tvPeatonEsperando = itemView.findViewById(R.id.tvPeatonEsperando);
     }
+}
 }

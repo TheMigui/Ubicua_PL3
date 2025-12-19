@@ -24,12 +24,13 @@
         android:orientation="horizontal"
         android:layout_marginBottom="8dp">
 
+        <!-- Estado coches -->
         <TextView
             android:id="@+id/tvEstadoCoches"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Coches: VERDE"
+            android:text="🚗 VERDE"
             android:textSize="14sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -37,12 +38,13 @@
             android:layout_marginEnd="4dp"
             android:background="@drawable/estado_background"/>
 
+        <!-- Estado peatones -->
         <TextView
             android:id="@+id/tvEstadoPeatones"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Peatones: ROJO"
+            android:text="🚶 ROJO"
             android:textSize="14sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -54,10 +56,10 @@
 
     <!-- Indicador de peatón esperando -->
     <TextView
-        android:id="@+id/tvEsperando"
+        android:id="@+id/tvPeatonEsperando"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CON PEATÓN"
+        android:text="🟢 CON PEATÓN ESPERANDO"
         android:textSize="13sp"
         android:textStyle="bold"
         android:gravity="center"
